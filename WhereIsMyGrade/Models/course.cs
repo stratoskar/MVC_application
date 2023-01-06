@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhereIsMyGrade.Models
 {
@@ -16,6 +17,10 @@ namespace WhereIsMyGrade.Models
         public string CourseSemester { get; set; }
 
         [Required]
+        [ForeignKey("professors")]
         public int PROFESSORS_AFM { get; set; }
+
+        // This is the Foreign key
+        public virtual professors professors { get; set; }
     }
 }

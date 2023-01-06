@@ -11,8 +11,8 @@ using WhereIsMyGrade.Data;
 namespace WhereIsMyGrade.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230106145858_init")]
-    partial class init
+    [Migration("20230106154554_withForeignKeys")]
+    partial class withForeignKeys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,24 +46,25 @@ namespace WhereIsMyGrade.Migrations
 
                     b.HasKey("IdCourse");
 
+                    b.HasIndex("PROFESSORS_AFM");
+
                     b.ToTable("course");
                 });
 
             modelBuilder.Entity("WhereIsMyGrade.Models.course_has_students", b =>
                 {
                     b.Property<int>("COURSE_idCOURSE")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("COURSE_idCOURSE"), 1L, 1);
-
-                    b.Property<int>("GradeCourseStudent")
                         .HasColumnType("int");
 
                     b.Property<int>("STUDENTS_RegistrationNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("COURSE_idCOURSE");
+                    b.Property<int>("GradeCourseStudent")
+                        .HasColumnType("int");
+
+                    b.HasKey("COURSE_idCOURSE", "STUDENTS_RegistrationNumber");
+
+                    b.HasIndex("STUDENTS_RegistrationNumber");
 
                     b.ToTable("course_has_students");
                 });
@@ -98,6 +99,8 @@ namespace WhereIsMyGrade.Migrations
 
                     b.HasKey("AFM");
 
+                    b.HasIndex("USERS_username");
+
                     b.ToTable("professors");
                 });
 
@@ -130,6 +133,8 @@ namespace WhereIsMyGrade.Migrations
                         .HasColumnType("nvarchar(45)");
 
                     b.HasKey("Phonenumber");
+
+                    b.HasIndex("USERS_username");
 
                     b.ToTable("secretaries");
                 });
@@ -164,6 +169,8 @@ namespace WhereIsMyGrade.Migrations
 
                     b.HasKey("RegistrationNumber");
 
+                    b.HasIndex("USERS_username");
+
                     b.ToTable("students");
                 });
 
@@ -186,6 +193,69 @@ namespace WhereIsMyGrade.Migrations
                     b.HasKey("Username");
 
                     b.ToTable("user");
+                });
+
+            modelBuilder.Entity("WhereIsMyGrade.Models.course", b =>
+                {
+                    b.HasOne("WhereIsMyGrade.Models.professors", "professors")
+                        .WithMany()
+                        .HasForeignKey("PROFESSORS_AFM")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("professors");
+                });
+
+            modelBuilder.Entity("WhereIsMyGrade.Models.course_has_students", b =>
+                {
+                    b.HasOne("WhereIsMyGrade.Models.course", "course")
+                        .WithMany()
+                        .HasForeignKey("COURSE_idCOURSE")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WhereIsMyGrade.Models.students", "students")
+                        .WithMany()
+                        .HasForeignKey("STUDENTS_RegistrationNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("course");
+
+                    b.Navigation("students");
+                });
+
+            modelBuilder.Entity("WhereIsMyGrade.Models.professors", b =>
+                {
+                    b.HasOne("WhereIsMyGrade.Models.users", "users")
+                        .WithMany()
+                        .HasForeignKey("USERS_username")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("WhereIsMyGrade.Models.secretaries", b =>
+                {
+                    b.HasOne("WhereIsMyGrade.Models.users", "users")
+                        .WithMany()
+                        .HasForeignKey("USERS_username")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("WhereIsMyGrade.Models.students", b =>
+                {
+                    b.HasOne("WhereIsMyGrade.Models.users", "users")
+                        .WithMany()
+                        .HasForeignKey("USERS_username")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("users");
                 });
 #pragma warning restore 612, 618
         }

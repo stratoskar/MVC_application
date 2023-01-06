@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WhereIsMyGrade.Models
 {
@@ -21,6 +22,10 @@ namespace WhereIsMyGrade.Models
 
         [Required]
         [MaxLength(45)]
+        [ForeignKey("users")]
         public string USERS_username { get; set; }
+
+        // This is the Foreign key
+        public virtual users users { get; set; }
     }
 }

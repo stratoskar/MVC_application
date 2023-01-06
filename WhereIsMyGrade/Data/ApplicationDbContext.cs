@@ -11,6 +11,11 @@ namespace WhereIsMyGrade.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<course_has_students>().HasKey(x => new { x.COURSE_idCOURSE, x.STUDENTS_RegistrationNumber });
+        }
+
         // create the tables of the database
         public DbSet<users> user { get; set; }
         public DbSet<course> course { get; set; }

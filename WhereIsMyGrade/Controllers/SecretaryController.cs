@@ -20,6 +20,7 @@ namespace WhereIsMyGrade.Controllers
         /// <returns></returns>
         public IActionResult RegisterUserToDatabase()
         {
+            string user_type = Request.Form["user_selection"].ToString();
             return View();
         }
     }

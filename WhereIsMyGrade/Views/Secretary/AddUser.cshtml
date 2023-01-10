@@ -110,13 +110,13 @@
 
             <br><br><br>
             <label><b style="color:#012A6C">Professor</b></label>
-            <input type="radio" id="radio_professor" name="user_selection" value="Professor" onclick="makeFieldsDisappear()">
+            <input type="radio" id="radio_professor" name="user_selection" value="professor" onclick="makeFieldsDisappear()">
 
             <label><b style="color:#012A6C">Student</b></label>
-            <input type="radio" id="radio_student" name="user_selection" value="Student" onclick="makeFieldsDisappear()">
+            <input type="radio" id="radio_student" name="user_selection" value="student" onclick="makeFieldsDisappear()">
 
             <label><b style="color:#012A6C">Course</b></label>
-            <input type="radio" id="radio_course" name="user_selection" value="Course" onclick="makeFieldsDisappear()">
+            <input type="radio" id="radio_course" name="user_selection" value="course" onclick="makeFieldsDisappear()">
         </div>
         <div class="container">
             <label id="label_username"><b style="color:#012A6C">Username: *</b></label>
@@ -143,7 +143,7 @@
             <label id="label_coursetitle"><b style="color:#012A6C">Course title: *</b></label>
             <input type="text" id="coursetitle" placeholder="Enter course title" name="course_title" required>
 
-            <label id="label_coursesemester"><b style="color:#012A6C">Course's semester': *</b></label>
+            <label id="label_coursesemester"><b style="color:#012A6C">Course's semester number: *</b></label>
             <input type="text" id="coursesemester" placeholder="Enter course semester" name="course_semester" required>
             
             <label id="label_professorsAFM"><b style="color:#012A6C">Professor's AFM: *</b></label>
@@ -173,6 +173,17 @@
             document.getElementById("coursetitle").hidden        = document.getElementById("label_coursetitle").hidden        = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
             document.getElementById("coursesemester").hidden     = document.getElementById("label_coursesemester").hidden     = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
             document.getElementById("professorsAFM").hidden      = document.getElementById("label_professorsAFM").hidden      = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+
+            document.getElementById("username").required            = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("password").required            = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("firstname").required           = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("lastname").required            = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("department").required          = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("AFM").required                 = document.getElementById("radio_professor").checked;
+            document.getElementById("registratiosnumber").required  = document.getElementById("radio_student").checked;
+            document.getElementById("coursetitle").required         = document.getElementById("radio_course").checked;
+            document.getElementById("coursesemester").required      = document.getElementById("radio_course").checked;
+            document.getElementById("professorsAFM").required       = document.getElementById("radio_course").checked;
         }
 
         // this function is used for form's validation on client's side

@@ -45,6 +45,8 @@ namespace WhereIsMyGrade.Controllers
                             return RedirectToAction("Index", "Professor");
                         case "student":
                             return RedirectToAction("Index", "Student");
+                        default:
+                            return RedirectToAction("Error");
                     }
                 }
             }

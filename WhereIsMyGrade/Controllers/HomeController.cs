@@ -23,12 +23,34 @@ namespace WhereIsMyGrade.Controllers
             string GivenUsername = Request.Form["username"].ToString();
             string GivenPassword = Request.Form["password"].ToString();
 
-            List<users> all_users = _db.user.ToList();
-
-            if ((from user in all_users where user.Username == GivenUsername select user).ToArray().Length == 0)
+            // Added another layer of security, in case the fields are not filled.
+            if (GivenUsername.Length == 0 || GivenPassword.Length == 0)
                 return RedirectToAction("Error");
 
-            return View();
+            // Select all users
+            List<users> all_users = _db.user.ToList();
+
+            // Search in all users
+            foreach (users user in all_users)
+            {
+                // Search an existing username and password pair.
+                if (user.Username == GivenUsername && user.Password == GivenPassword)
+                {
+                    // Redirect the user to the corresponding page.
+                    switch (user.Role)
+                    {
+                        case "secretary":
+                            return RedirectToAction("Index", "Secretary");
+                        case "professor":
+                            return RedirectToAction("Index", "Professor");
+                        case "student":
+                            return RedirectToAction("Index", "Student");
+                    }
+                }
+            }
+
+            // Otherwise, there is an error (possibly the user doesn't exists).
+            return RedirectToAction("Error");
         }
 
         public IActionResult Login()

@@ -108,7 +108,15 @@
         <div class="container">
             <label><b style="color:#012A6C">Add new user (Professor or Student):</b></label>
 
-            <input type="radio" id=""
+            <br><br><br>
+            <label><b style="color:#012A6C">Professor</b></label>
+            <input type="radio" id="radio_professor" name="user_selection" value="Professor" onclick="makeFieldsDisappear()">
+
+            <label><b style="color:#012A6C">Student</b></label>
+            <input type="radio" id="radio_student" name="user_selection" value="Student" onclick="makeFieldsDisappear()">
+
+            <label><b style="color:#012A6C">Course</b></label>
+            <input type="radio" id="radio_course" name="user_selection" value="Course" onclick="makeFieldsDisappear()">
         </div>
         <div class="container">
             <label><b style="color:#012A6C">Username: *</b></label>
@@ -148,6 +156,24 @@
     </form>
     <br>
     <script>
+
+        document.getElementById("radio_professor").checked = true;
+
+        function makeFieldsDisappear()
+        {
+            // hide or show labels and fields depending on what radio button is selected
+            document.getElementById("username").hidden           = document.getElementById("radio_course").checked;
+            document.getElementById("password").hidden           = document.getElementById("radio_course").checked;
+            document.getElementById("firstname").hidden          = document.getElementById("radio_course").checked;
+            document.getElementById("lastname").hidden           = document.getElementById("radio_course").checked;
+            document.getElementById("department").hidden         = document.getElementById("radio_course").checked;
+            document.getElementById("AFM").hidden                = document.getElementById("radio_course").checked || document.getElementById("radio_student").checked;
+            document.getElementById("registratiosnumber").hidden = document.getElementById("radio_course").checked || document.getElementById("radio_professor").checked;
+            document.getElementById("coursetitle").hidden        = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("coursesemester").hidden     = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("professorsAFM").hidden      = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+        }
+
         // this function is used for form's validation on client's side
         function validation() {
             // get the values of inputs that user gave in the form

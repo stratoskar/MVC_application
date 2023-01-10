@@ -23,13 +23,11 @@ namespace WhereIsMyGrade.Controllers
             string GivenUsername = Request.Form["username"].ToString();
             string GivenPassword = Request.Form["password"].ToString();
 
-            var obj = _db.user.ToList();
+            List<users> all_users = _db.user.ToList();
 
-            if (GivenUsername.Equals("sk"))
-            {
-                return RedirectToAction("Index"); // Go to the main page if user's input is valid
-            }
-          
+            if ((from user in all_users where user.Username == GivenUsername select user).ToArray().Length == 0)
+                return RedirectToAction("Error");
+
             return View();
         }
 

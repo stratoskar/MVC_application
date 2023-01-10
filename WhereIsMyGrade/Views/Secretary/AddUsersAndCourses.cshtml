@@ -1,5 +1,9 @@
-﻿<!-- This is the page where a secreatry can add a new user  -->
+﻿@{
+    ViewData["Title"] = "Add Users and Courses";
+    Layout = "_NoMenuLayout";
+}
 
+<!-- This is the page where a secreatry can add a new user  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,21 +105,18 @@
 </head>
 <body>
     <form asp-action="RegisterUserToDatabase" asp-controller="Secretary" method="post" onsubmit="return validation()">
+        <br />
         <div class="imgcontainer">
-            <img src="~/images/callendar.png" alt="logo_image" class="avatar">
+            <img src="~/images/grade_icon.png" alt="logo_image" class="avatar">
         </div>
         <center><div id="error_message"></div></center>
         <div class="container">
-            <label><b style="color:#012A6C">Add new user (Professor or Student):</b></label>
-
-            <br><br><br>
+            <label><b style="color:#012A6C">What do you want to add?&nbsp;</b></label>
             <label><b style="color:#012A6C">Professor</b></label>
             <input type="radio" id="radio_professor" name="user_selection" value="professor" onclick="makeFieldsDisappear()">
-
-            <label><b style="color:#012A6C">Student</b></label>
+            <label><b style="color:#012A6C">&nbsp; Student</b></label>
             <input type="radio" id="radio_student" name="user_selection" value="student" onclick="makeFieldsDisappear()">
-
-            <label><b style="color:#012A6C">Course</b></label>
+            <label><b style="color:#012A6C">&nbsp; Course</b></label>
             <input type="radio" id="radio_course" name="user_selection" value="course" onclick="makeFieldsDisappear()">
         </div>
         <div class="container">

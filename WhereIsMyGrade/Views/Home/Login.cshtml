@@ -1,7 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Login";
-    Layout = "_LoginLayout";
+    Layout = "_NoMenuLayout";
 }
+
+<!-- This is the login page of the application -->
 <html lang="en">
     <head>
         <title>Login</title>
@@ -100,7 +102,7 @@
     <body>
         <form asp-action="Index" asp-controller="Home" method="post">
             <div class="imgcontainer">
-                <img src="~/images/callendar.png" alt="logo_image" class="avatar">
+                <img src="~/images/grade_icon.png" alt="logo_image" class="avatar">
             </div>
             <div class="container">
                 <label><b style="color:#012A6C">Username: *</b></label>

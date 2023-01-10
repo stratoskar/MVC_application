@@ -18,7 +18,7 @@ namespace WhereIsMyGrade.Controllers
             return View();
         }
 
-        public IActionResult AddUser()
+        public IActionResult AddUsersAndCourses()
         {
             return View();
         }

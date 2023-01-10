@@ -8,5 +8,19 @@ namespace WhereIsMyGrade.Controllers
         {
             return View();
         }
+
+        public IActionResult AddUser()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// This method pushes a new user to the database
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult RegisterUserToDatabase()
+        {
+            return View();
+        }
     }
 }

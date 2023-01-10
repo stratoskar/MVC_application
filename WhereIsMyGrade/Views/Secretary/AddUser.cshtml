@@ -1,0 +1,183 @@
+﻿<!-- This is the page where a secreatry can add a new user  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Register a new user</title>
+    <style>
+        form {
+            border: 3px solid whitesmoke;
+            background-color: white;
+        }
+
+        * {
+            font-family: candara;
+        }
+
+        p {
+            color: white;
+            font-size: 18px;
+            margin: 4px 0;
+            width: auto;
+        }
+
+        body {
+            background-color: seagreen;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            box-sizing: border-box;
+            border: 1px solid mediumseagreen;
+        }
+        
+        button {
+            color: white;
+            padding: 10px 18px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: auto;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+   
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+
+        img.avatar {
+            width: 16%;
+            border-radius: 70%;
+        }
+   
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+            color: #012A6C
+        }
+ 
+        a:visited {
+            color: #012A6C;
+        }
+
+        a {
+            font-size: 16px;
+            color: #012A6C;
+        }
+
+        #error_message {
+            background: #fe8b8e;
+            text-align: center;
+            font-size: 16px;
+            transition: all 0.5s ease;
+            width: 97%;
+            margin: 8px 0;
+            display: inline-block;
+            box-sizing: border-box;
+            color: white;
+            font-weight: bold;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+    <form asp-action="RegisterUserToDatabase" asp-controller="Secretary" method="post" onsubmit="return validation()">
+        <div class="imgcontainer">
+            <img src="~/images/callendar.png" alt="logo_image" class="avatar">
+        </div>
+        <center><div id="error_message"></div></center>
+        <div class="container">
+            <label><b style="color:#012A6C">Add new user (Professor or Student):</b></label>
+        </div>
+        <div class="container">
+            <label><b style="color:#012A6C">Username: *</b></label>
+            <input type="text" id="username" placeholder="Enter username" name="username" required>
+
+            <label><b style="color:#012A6C">Password: *</b></label>
+            <input type="password" id="password" placeholder="Enter password" name="password" required>
+
+            <label><b style="color:#012A6C">First Name: *</b></label>
+            <input type="text" id="firstname" placeholder="Enter first nane" name="first_name" required>
+
+            <label><b style="color:#012A6C">Last Name: *</b></label>
+            <input type="text" id="lastname" placeholder="Enter last nane" name="last_name" required>
+
+            <label><b style="color:#012A6C">Department: *</b></label>
+            <input type="text" id="department" placeholder="Enter department" name="department" required>
+
+            <label><b style="color:#012A6C">AFM: *</b></label>
+            <input type="text" id="AFM" placeholder="Enter AFM" name="AFM" required>
+
+            <label><b style="color:#012A6C">Registration Number: *</b></label>
+            <input type="text" id="registratiosnumber" placeholder="Enter registration number" name="registration_number" required>
+
+            <label><b style="color:#012A6C">Course title: *</b></label>
+            <input type="text" id="coursetitle" placeholder="Enter course title" name="course_title" required>
+
+            <label><b style="color:#012A6C">Course's semester': *</b></label>
+            <input type="text" id="coursesemester" placeholder="Enter course semester" name="course_semester" required>
+            
+            <label><b style="color:#012A6C">Professor's' AFM: *</b></label>
+            <input type="text" id="professorsAFM" placeholder="Enter professors AFM" name="professors_AFM" required>
+        </div>
+        <div class="container" style="background-color:#f1f1f1">
+            <button style="background-color: #012A6C;" type="submit">Register</button>
+            <button type="reset" class="cancelbtn">Reset</button>
+        </div>
+    </form>
+    <br>
+    <script>
+        // this function is used for form's validation on client's side
+        function validation() {
+            // get the values of inputs that user gave in the form
+            var fullname = document.getElementById("fullname").value;
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            var text; // set a new variable
+            // use a new variable for storing the errors during validation
+            error_message.style.padding = "10px";
+            // validation check begins
+            // check first name
+            if (!/^[A-Z][a-z]*\s[A-Z][a-z]*$/.test(fullname)) {
+                text = "Your fullname includes your Name and Surname, which are separated with space. (ex. George Papadopoulos)";
+                error_message.innerHTML = text;
+                return false;
+            }
+
+            // check username
+            if (!/\S/.test(username)) {
+                text = "Username should not consist of only space characters!";
+                error_message.innerHTML = text;
+                return false;
+            }
+            // check password
+            if (password.length < 4) {
+                text = "Password consists of at least 4 characters!";
+                error_message.innerHTML = text;
+                return false;
+            }
+            return true; // everything is fine, no errors occurred
+        }
+    </script>
+</body>
+</html>

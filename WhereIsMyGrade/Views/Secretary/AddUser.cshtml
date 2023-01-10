@@ -119,34 +119,34 @@
             <input type="radio" id="radio_course" name="user_selection" value="Course" onclick="makeFieldsDisappear()">
         </div>
         <div class="container">
-            <label><b style="color:#012A6C">Username: *</b></label>
+            <label id="label_username"><b style="color:#012A6C">Username: *</b></label>
             <input type="text" id="username" placeholder="Enter username" name="username" required>
 
-            <label><b style="color:#012A6C">Password: *</b></label>
+            <label id="label_password"><b style="color:#012A6C">Password: *</b></label>
             <input type="password" id="password" placeholder="Enter password" name="password" required>
 
-            <label><b style="color:#012A6C">First Name: *</b></label>
+            <label id="label_firstname"><b style="color:#012A6C">First Name: *</b></label>
             <input type="text" id="firstname" placeholder="Enter first name" name="first_name" required>
 
-            <label><b style="color:#012A6C">Last Name: *</b></label>
+            <label id="label_lastname"><b style="color:#012A6C">Last Name: *</b></label>
             <input type="text" id="lastname" placeholder="Enter last name" name="last_name" required>
 
-            <label><b style="color:#012A6C">Department: *</b></label>
+            <label id="label_department"><b style="color:#012A6C">Department: *</b></label>
             <input type="text" id="department" placeholder="Enter department" name="department" required>
 
-            <label><b style="color:#012A6C">AFM: *</b></label>
+            <label id=label_AFM><b style="color:#012A6C">AFM: *</b></label>
             <input type="text" id="AFM" placeholder="Enter AFM" name="AFM" required>
 
-            <label><b style="color:#012A6C">Registration Number: *</b></label>
+            <label id="label_registratiosnumber"><b style="color:#012A6C">Registration Number: *</b></label>
             <input type="text" id="registratiosnumber" placeholder="Enter registration number" name="registration_number" required>
 
-            <label><b style="color:#012A6C">Course title: *</b></label>
+            <label id="label_coursetitle"><b style="color:#012A6C">Course title: *</b></label>
             <input type="text" id="coursetitle" placeholder="Enter course title" name="course_title" required>
 
-            <label><b style="color:#012A6C">Course's semester': *</b></label>
+            <label id="label_coursesemester"><b style="color:#012A6C">Course's semester': *</b></label>
             <input type="text" id="coursesemester" placeholder="Enter course semester" name="course_semester" required>
             
-            <label><b style="color:#012A6C">Professor's' AFM: *</b></label>
+            <label id="label_professorsAFM"><b style="color:#012A6C">Professor's' AFM: *</b></label>
             <input type="text" id="professorsAFM" placeholder="Enter professors AFM" name="professors_AFM" required>
         </div>
         <div class="container" style="background-color:#f1f1f1">
@@ -158,20 +158,21 @@
     <script>
 
         document.getElementById("radio_professor").checked = true;
+        makeFieldsDisappear();
 
         function makeFieldsDisappear()
         {
             // hide or show labels and fields depending on what radio button is selected
-            document.getElementById("username").hidden           = document.getElementById("radio_course").checked;
-            document.getElementById("password").hidden           = document.getElementById("radio_course").checked;
-            document.getElementById("firstname").hidden          = document.getElementById("radio_course").checked;
-            document.getElementById("lastname").hidden           = document.getElementById("radio_course").checked;
-            document.getElementById("department").hidden         = document.getElementById("radio_course").checked;
-            document.getElementById("AFM").hidden                = document.getElementById("radio_course").checked || document.getElementById("radio_student").checked;
-            document.getElementById("registratiosnumber").hidden = document.getElementById("radio_course").checked || document.getElementById("radio_professor").checked;
-            document.getElementById("coursetitle").hidden        = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
-            document.getElementById("coursesemester").hidden     = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
-            document.getElementById("professorsAFM").hidden      = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("username").hidden           = document.getElementById("label_username").hidden           = document.getElementById("radio_course").checked;
+            document.getElementById("password").hidden           = document.getElementById("label_password").hidden           = document.getElementById("radio_course").checked;
+            document.getElementById("firstname").hidden          = document.getElementById("label_firstname").hidden          = document.getElementById("radio_course").checked;
+            document.getElementById("lastname").hidden           = document.getElementById("label_lastname").hidden           = document.getElementById("radio_course").checked;
+            document.getElementById("department").hidden         = document.getElementById("label_department").hidden         = document.getElementById("radio_course").checked;
+            document.getElementById("AFM").hidden                = document.getElementById("label_AFM").hidden                = document.getElementById("radio_course").checked || document.getElementById("radio_student").checked;
+            document.getElementById("registratiosnumber").hidden = document.getElementById("label_registratiosnumber").hidden = document.getElementById("radio_course").checked || document.getElementById("radio_professor").checked;
+            document.getElementById("coursetitle").hidden        = document.getElementById("label_coursetitle").hidden        = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("coursesemester").hidden     = document.getElementById("label_coursesemester").hidden     = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
+            document.getElementById("professorsAFM").hidden      = document.getElementById("label_professorsAFM").hidden      = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
         }
 
         // this function is used for form's validation on client's side

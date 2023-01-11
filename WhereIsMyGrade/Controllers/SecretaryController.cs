@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using WhereIsMyGrade.Data;
 using WhereIsMyGrade.Models;
 
@@ -7,10 +8,12 @@ namespace WhereIsMyGrade.Controllers
     public class SecretaryController : Controller
     {
         private readonly ApplicationDbContext _db;
+        ErrorViewModel error;
 
         public SecretaryController(ApplicationDbContext db)
         {
             _db = db;
+            error = new ErrorViewModel();
         }
 
         public IActionResult Index()
@@ -100,6 +103,45 @@ namespace WhereIsMyGrade.Controllers
                     break;
 
                 case "course":
+
+                    // retrieve data from the course fields
+                    string course_title = Request.Form["course_title"].ToString();
+                    string course_semester = Request.Form["course_semester"].ToString();
+                    string Professors_AFM = Request.Form["professors_AFM"].ToString();
+
+                    // create a course object
+                    course _course = new course();
+                    _course.CourseTitle = course_title;
+                    _course.CourseSemester = course_semester;
+                    _course.PROFESSORS_AFM = int.Parse(Professors_AFM);
+
+                    // add it to the database
+                    _db.course.Add(_course);
+
+                    // try to save the changes, otherwise there is an error
+                    try
+                    {
+                        _db.SaveChanges();
+                    }
+
+                    // this error occurs when the AFM doesn't exist
+                    catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        error.Explain = "Course could not be added to the database. Possibly, because the Professor's AFM you entered doesn't yet exist in the database.";
+                        ViewBag.Message = error;
+                        return RedirectToAction("Error");
+                    }
+
+                    // unexpected errors are general exceptions
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        error.Explain = "An unxpected error occurred.";
+                        ViewBag.Message = error;
+                        return RedirectToAction("Error");
+                    }
+
                     break;
 
                 default:

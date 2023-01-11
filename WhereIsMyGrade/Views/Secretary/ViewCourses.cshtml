@@ -1,0 +1,84 @@
+﻿<!-- In this page, a secretary can view all the courses, declare them to students and assign a course to professor -->
+@model IEnumerable<course>
+
+@{
+    ViewData["Title"] = "View Courses";
+}
+
+<style>
+    a {
+        font-size: 18px;
+        color: darksalmon;
+    }
+
+    * {
+        font-family: candara;
+        color: white;
+        font-family: 18px;
+    }
+
+    .box {
+        border: 1px solid white;
+        height: 30px;
+    }
+
+    body {
+        background-color: seagreen;
+    }
+
+    a:hover {
+        color: floralwhite;
+    }
+</style>
+
+<br />
+<br />
+<h5>Here you can see information of all the courses:</h5>
+<br />
+<br />
+<body>
+    <p>
+        <a asp-action="Create">Create new event</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseSemester)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PROFESSORS_AFM)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.CourseTitle)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseSemester)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PROFESSORS_AFM)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdCourse">Αssign to professor</a> |
+                        <a asp-action="Delete" asp-route-id="@item.IdCourse">Declare to student</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <left>
+        <div class="box" style="background-color: white;padding-left:20px;">
+            <a style="background-color: #f44336;color:white;" class="button" asp-action="Login">Logout</a>
+        </div>
+    </left>
+</body>

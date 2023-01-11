@@ -8,7 +8,6 @@ namespace WhereIsMyGrade.Models
         [ForeignKey("course")]
         public int COURSE_idCOURSE { get; set; }
 
-        [Required]
         [ForeignKey("students")]
         public int STUDENTS_RegistrationNumber { get; set; }
 

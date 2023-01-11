@@ -6,6 +6,7 @@ namespace WhereIsMyGrade.Models
     public class professors
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AFM { get; set; }
 
         [Required]

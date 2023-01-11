@@ -4,7 +4,7 @@
 
 namespace WhereIsMyGrade.Migrations
 {
-    public partial class withForeignKeys : Migration
+    public partial class Grades : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,8 +25,7 @@ namespace WhereIsMyGrade.Migrations
                 name: "professors",
                 columns: table => new
                 {
-                    AFM = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AFM = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Department = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
@@ -47,8 +46,7 @@ namespace WhereIsMyGrade.Migrations
                 name: "secretaries",
                 columns: table => new
                 {
-                    Phonenumber = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Phonenumber = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Department = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
@@ -69,8 +67,7 @@ namespace WhereIsMyGrade.Migrations
                 name: "students",
                 columns: table => new
                 {
-                    RegistrationNumber = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RegistrationNumber = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                     Department = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),

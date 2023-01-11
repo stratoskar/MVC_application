@@ -6,6 +6,7 @@ namespace WhereIsMyGrade.Models
     public class students
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RegistrationNumber { get; set; }
         
         [Required]

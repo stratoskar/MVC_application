@@ -55,7 +55,7 @@ namespace WhereIsMyGrade.Controllers
                     // create a professor object
                     professors professor = new professors();
 
-                    //professor.AFM = int.Parse(AFM);
+                    professor.AFM = int.Parse(AFM);
                     professor.USERS_username = username;
                     professor.Name = firstname;
                     professor.Surname = lastname;

@@ -11,8 +11,8 @@ using WhereIsMyGrade.Data;
 namespace WhereIsMyGrade.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230106154554_withForeignKeys")]
-    partial class withForeignKeys
+    [Migration("20230111142529_Grades")]
+    partial class Grades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,10 +72,7 @@ namespace WhereIsMyGrade.Migrations
             modelBuilder.Entity("WhereIsMyGrade.Models.professors", b =>
                 {
                     b.Property<int>("AFM")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AFM"), 1L, 1);
 
                     b.Property<string>("Department")
                         .IsRequired()
@@ -107,10 +104,7 @@ namespace WhereIsMyGrade.Migrations
             modelBuilder.Entity("WhereIsMyGrade.Models.secretaries", b =>
                 {
                     b.Property<int>("Phonenumber")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Phonenumber"), 1L, 1);
 
                     b.Property<string>("Department")
                         .IsRequired()
@@ -142,10 +136,7 @@ namespace WhereIsMyGrade.Migrations
             modelBuilder.Entity("WhereIsMyGrade.Models.students", b =>
                 {
                     b.Property<int>("RegistrationNumber")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationNumber"), 1L, 1);
 
                     b.Property<string>("Department")
                         .IsRequired()

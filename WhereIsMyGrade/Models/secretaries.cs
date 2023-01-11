@@ -6,6 +6,7 @@ namespace WhereIsMyGrade.Models
     public class secretaries
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Phonenumber { get; set; }
 
         [Required]

@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Add Users and Courses";
-    Layout = "_NoMenuLayout";
+    Layout = "_SecretaryLayout";
 }
 
 <!-- This is the page where a secreatry can add a new user  -->
@@ -47,6 +47,21 @@
             border: none;
             cursor: pointer;
             width: auto;
+        }
+
+        .button {
+            background-color: mediumseagreen;
+            color: white;
+            padding: 10px 18px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: auto;
+        }
+
+        .box {
+            border: 1px solid white;
+            height: 30px;
         }
 
         button:hover {
@@ -155,6 +170,13 @@
             <button type="reset" class="cancelbtn">Reset</button>
         </div>
     </form>
+    <br />
+    <br />
+    <left>
+        <div class="box" style="background-color: white;padding-left:20px;">
+            <a style="background-color: #808080;color:white;" class="button" asp-asp-controller="Home" asp-action="Login">Logout</a>
+        </div>
+    </left>
     <br>
     <script>
 

@@ -23,6 +23,16 @@ namespace WhereIsMyGrade.Controllers
             return View();
         }
 
+  
+        /// <returns>This method returns the all the courses that exist in the database</returns>
+        public IActionResult ViewCourses()
+        {
+            // Select all courses
+            List<course> all_courses = _db.course.ToList();
+            return View(all_courses);
+        }
+
+
         public IActionResult AddUsersAndCourses()
         {
             return View();

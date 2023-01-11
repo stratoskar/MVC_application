@@ -1,0 +1,44 @@
+﻿<!-- This is the page that shows success messages -->
+@model SuccessModel;
+
+@{
+    ViewData["Title"] = "Success";
+}
+
+@{
+    var message = ViewBag.Message;
+}
+
+<style>
+    * {
+        font-family: candara;
+        color: white;
+        font-family: 18px;
+    }
+
+    body {
+        background-color: seagreen;
+    }
+</style>
+
+<center>
+    <br />
+    <br />
+    <h3>An error occurred while processing your request!</h3>
+    <br />
+
+    <img src="~/images/error.png" />
+
+    <h4>Error explanation: @message.Explain</h4>
+    <br />
+    <br />
+    <h5>You will be redirected to the previous page in 10 seconds</h5>
+</center>
+
+
+<script type="text/javascript">
+    function Redirect() {
+        window.location = "https://localhost:44394/Home/Login";
+    }
+    setTimeout('Redirect()', 10000);
+</script>

@@ -77,7 +77,10 @@ namespace WhereIsMyGrade.Controllers
 
             }
 
-            return View();
+            SuccessModel success = new SuccessModel();
+            success.Explain = "New user added to the  system!";
+            ViewBag.Message = success;
+            return View("Success");
         }
     }
 }

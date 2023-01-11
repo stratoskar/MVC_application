@@ -9,11 +9,13 @@ namespace WhereIsMyGrade.Controllers
     {
         private readonly ApplicationDbContext _db;
         ErrorViewModel error;
+        SuccessModel success;
 
         public SecretaryController(ApplicationDbContext db)
         {
             _db = db;
             error = new ErrorViewModel();
+            success = new SuccessModel();
         }
 
         public IActionResult Index()
@@ -66,8 +68,31 @@ namespace WhereIsMyGrade.Controllers
                     _db.professors.Add(professor);
 
                     // add to the database
-                    _db.SaveChanges();
-                    break;
+                    try
+                    {
+                        _db.SaveChanges();
+                        success.Explain = "New user added to the system!";
+                        ViewBag.Message = success;
+                        return View("Success");
+                    }
+
+                    // this error occurs when the AFM doesn't exist
+                    catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        error.Explain = "Professor could not be added to the database. Possibly, because the Professor's AFM you entered already exists in the database.";
+                        ViewBag.Message = error;
+                        return View("Error");
+                    }
+
+                    // unexpected errors are general exceptions
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        error.Explain = "An unxpected error occurred.";
+                        ViewBag.Message = error;
+                        return View("Error");
+                    }
 
                 case "student":
 
@@ -98,9 +123,31 @@ namespace WhereIsMyGrade.Controllers
                     _db.students.Add(student);
 
                     // add to the database
-                    _db.SaveChanges();
+                    try
+                    {
+                        _db.SaveChanges();
+                        success.Explain = "New user added to the system!";
+                        ViewBag.Message = success;
+                        return View("Success");
+                    }
 
-                    break;
+                    // this error occurs when the AFM doesn't exist
+                    catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        error.Explain = "Student could not be added to the database. Possibly, because the Student's registration number you entered already exists in the database.";
+                        ViewBag.Message = error;
+                        return View("Error");
+                    }
+
+                    // unexpected errors are general exceptions
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        error.Explain = "An unxpected error occurred.";
+                        ViewBag.Message = error;
+                        return View("Error");
+                    }
 
                 case "course":
 
@@ -122,6 +169,9 @@ namespace WhereIsMyGrade.Controllers
                     try
                     {
                         _db.SaveChanges();
+                        success.Explain = "New course added to the system!";
+                        ViewBag.Message = success;
+                        return View("Success");
                     }
 
                     // this error occurs when the AFM doesn't exist
@@ -130,7 +180,7 @@ namespace WhereIsMyGrade.Controllers
                         Debug.WriteLine(e.Message);
                         error.Explain = "Course could not be added to the database. Possibly, because the Professor's AFM you entered doesn't yet exist in the database.";
                         ViewBag.Message = error;
-                        return RedirectToAction("Error");
+                        return View("Error");
                     }
 
                     // unexpected errors are general exceptions
@@ -139,20 +189,13 @@ namespace WhereIsMyGrade.Controllers
                         Debug.WriteLine(e.Message);
                         error.Explain = "An unxpected error occurred.";
                         ViewBag.Message = error;
-                        return RedirectToAction("Error");
+                        return View("Error");
                     }
 
-                    break;
-
                 default:
-                    return RedirectToAction("Error");
+                    return View("Error");
 
             }
-
-            SuccessModel success = new SuccessModel();
-            success.Explain = "New user added to the  system!";
-            ViewBag.Message = success;
-            return View("Success");
         }
     }
 }

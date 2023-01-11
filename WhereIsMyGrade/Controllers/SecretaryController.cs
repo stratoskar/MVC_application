@@ -67,6 +67,36 @@ namespace WhereIsMyGrade.Controllers
                     break;
 
                 case "student":
+
+                    // retrieve data from the form.
+                    username = Request.Form["username"].ToString();
+                    password = Request.Form["password"].ToString();
+                    firstname = Request.Form["first_name"].ToString();
+                    lastname = Request.Form["last_name"].ToString();
+                    department = Request.Form["department"].ToString();
+                    string registration_number = Request.Form["registration_number"].ToString();
+
+                    // create a user object
+                    user = new users();
+
+                    user.Username = username;
+                    user.Password = password;
+                    user.Role = "student";
+                    _db.user.Add(user);
+
+                    // create a student object
+                    students student = new students();
+
+                    student.RegistrationNumber = int.Parse(registration_number);
+                    student.USERS_username = username;
+                    student.Name = firstname;
+                    student.Surname = lastname;
+                    student.Department = department;
+                    _db.students.Add(student);
+
+                    // add to the database
+                    _db.SaveChanges();
+
                     break;
 
                 case "course":

@@ -49,7 +49,18 @@ namespace WhereIsMyGrade.Controllers
                         case "secretary":
                             return RedirectToAction("Index", "Secretary");
                         case "professor":
+
+                            // Find the professor's name and AFM through LINQ.
+                            var professor_Name = (from professor in _db.professors.ToList() where professor.USERS_username == user.Username select professor.Name).First();
+                            var professor_AFM = (from professor in _db.professors.ToList() where professor.USERS_username == user.Username select professor.AFM).First();
+
+                            // Pass the data through TempData.
+                            TempData["Name"] = professor_Name;
+                            TempData["AFM"] = professor_AFM.ToString();
+
+                            // Redirect to the professor's home page.
                             return RedirectToAction("Index", "Professor");
+
                         case "student":
                             return RedirectToAction("Index", "Student");
                         default: // user's role is not appropriate

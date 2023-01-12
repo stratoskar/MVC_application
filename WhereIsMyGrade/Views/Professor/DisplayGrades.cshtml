@@ -42,13 +42,18 @@
 </style>
 
 <body>
+    @if (Model.professor_courses.Count == 0)
+    {
+        <h2>There are no courses to display.</h2>
+    }
+
     @foreach (var course in Model.professor_courses)
     {
         <h1>
             @course.CourseTitle
         </h1>
 
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>
@@ -62,6 +67,7 @@
                     </th>
                 </tr>
             </thead>
+            
             <tbody>
                 @foreach (var grade_details in Model.student_grades)
                 {

@@ -43,6 +43,9 @@
 
 <body>
     <form method="post" asp-controller="professor" asp-action="Add">
+        <div class="imgcontainer">
+            <img src="~/images/grade_icon.png" alt="logo_image" class="avatar">
+        </div>
         <div class="container">
             <label><a style="color:#012A6C">Students Registration Number:</a></label>
             <input type="number" placeholder="" name="registrationnumber" value="@Model.Item2.RegistrationNumber" required locked>

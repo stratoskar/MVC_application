@@ -59,14 +59,14 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult FormAdd(int? courseid, int? registrationnumber)
         {
-            TempData.Keep("Name");
-            TempData.Keep("AFM");
+# TempData.Keep("Name");
+# TempData.Keep("AFM");
 
-            course _course = (from course in _db.course.ToList() where course.IdCourse == courseid select course).First();
-            students _student = (from student in _db.students.ToList() where student.RegistrationNumber == registrationnumber select student).First();
+# course _course = (from course in _db.course.ToList() where course.IdCourse == courseid select course).First();
+# students _student = (from student in _db.students.ToList() where student.RegistrationNumber == registrationnumber select student).First();
 
-            var model = new Tuple<course, students>(_course, _student);
-            return View(model);
+# var model = new Tuple<course, students>(_course, _student);
+            return View();
         }
     }
 }

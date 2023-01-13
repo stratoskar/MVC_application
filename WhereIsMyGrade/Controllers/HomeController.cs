@@ -47,7 +47,15 @@ namespace WhereIsMyGrade.Controllers
                     switch (user.Role)
                     {
                         case "secretary":
+                            // Find the secretary's name through LINQ.
+                            var secretary_name = (from secretary in _db.secretaries.ToList() where secretary.USERS_username == user.Username select secretary.Name).First();
+                            
+                            // Pass the data through TempData.
+                            TempData["Name"] = secretary_name;
+
+                            // Redirect to the secretary's home page.
                             return RedirectToAction("Index", "Secretary");
+
                         case "professor":
 
                             // Find the professor's name and AFM through LINQ.

@@ -34,6 +34,12 @@ namespace WhereIsMyGrade.Controllers
         }
 
 
+        /// <summary>
+        /// This method returns the AddUsersAndCourses view. Using this page, secretaries can 
+        /// insert new users (professors and students), as well as courses to database.
+        /// </summary>
+        /// <returns></returns>
+
         public IActionResult AddUsersAndCourses()
         {
             return View();

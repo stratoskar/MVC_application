@@ -86,8 +86,8 @@
                         @Html.DisplayFor(modelItem => item.PROFESSORS_AFM)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Secretary" asp-route-id="@item.IdCourse">Αssign to professor</a> |
-                        <a asp-action="Delete" asp-controller="Secretary" asp-route-id="@item.IdCourse">Declare to student</a>
+                        <a asp-action="AssignPage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Αssign to professor</a> |
+                        <a asp-action="DeclarePage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Declare to student</a>
                     </td>
                 </tr>
             }

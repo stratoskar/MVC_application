@@ -39,8 +39,30 @@ namespace WhereIsMyGrade.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This method assigns a course to professor
+        /// </summary>
+        public IActionResult AssignToProfessor()
+        {
+            return View();
+        }
 
-        public IActionResult AssignToStudent()
+        // This method opens the Assign to Professor Page
+        public IActionResult AssignPage()
+        {
+            return View();
+        }
+
+        // This method opens the Declare to student Page
+        public IActionResult DeclarePage()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// This method declares a specific course to student
+        /// </summary>
+        public IActionResult DeclareToStudent()
         {
             return View();
         }

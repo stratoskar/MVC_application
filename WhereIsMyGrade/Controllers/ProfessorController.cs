@@ -59,14 +59,40 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult FormAdd(int? courseid, int? registrationnumber)
         {
-# TempData.Keep("Name");
-# TempData.Keep("AFM");
+            TempData.Keep("Name");
+            TempData.Keep("AFM");
 
-# course _course = (from course in _db.course.ToList() where course.IdCourse == courseid select course).First();
-# students _student = (from student in _db.students.ToList() where student.RegistrationNumber == registrationnumber select student).First();
+            course _course = (from course in _db.course.ToList() where course.IdCourse == courseid select course).First();
+            students _student = (from student in _db.students.ToList() where student.RegistrationNumber == registrationnumber select student).First();
 
-# var model = new Tuple<course, students>(_course, _student);
-            return View();
+            var model = new Tuple<course, students>(_course, _student);
+            return View(model);
+        }
+
+        public IActionResult Add()
+        {
+            TempData.Keep("Name");
+            TempData.Keep("AFM");
+
+            int registration_number = int.Parse(Request.Form["registrationnumber"].ToString());
+            int courseid = int.Parse(Request.Form["courseid"].ToString());
+            int grade = int.Parse(Request.Form["grade"].ToString());
+
+            if (grade < 0 || grade > 10)
+            {
+                error.Explain = "Invalid grade. Acceptable grades are in the range [0, 10].";
+                ViewBag.Message = error;
+                return View("Error");
+            }
+
+            course_has_students grading = _db.course_has_students.ToList().Find(o => o.COURSE_idCOURSE == courseid && o.STUDENTS_RegistrationNumber == registration_number);
+            grading.GradeCourseStudent = grade;
+            _db.Update(grading);
+            _db.SaveChanges();
+
+            success.Explain = $"Successfully assigned grade to {registration_number}";
+            ViewBag.Message = success;
+            return View("Success");
         }
     }
 }

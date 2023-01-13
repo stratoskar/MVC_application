@@ -68,7 +68,7 @@ namespace WhereIsMyGrade.Controllers
                             // create an error message for the user
                             error.Explain = "User's role is not appropriate or incorrect. Accepted user roles: secretary, student and professor.";
                             ViewBag.Message = error; // show error to user
-                            return RedirectToAction("Error");
+                            return View("Error");
                     }
                 }
             }
@@ -76,7 +76,7 @@ namespace WhereIsMyGrade.Controllers
             // Otherwise, there is an error (possibly the user doesn't exist).
             error.Explain = "User's credentials are incorrect!";
             ViewBag.Message = error; // show error to user
-            return RedirectToAction("Error");
+            return View("Error");
         }
 
         public IActionResult Login()

@@ -27,6 +27,7 @@
                 width: 100%;
                 padding: 12px 20px;
                 margin: 8px 0;
+                color: black;
                 display: inline-block;
                 box-sizing: border-box;
                 border:1px solid mediumseagreen;
@@ -58,6 +59,9 @@
 </head>
 <body>
     <form method="post" asp-controller="professor" asp-action="Add">
+        <div class="imgcontainer">
+                <img src="~/images/grade_icon.png" alt="logo_image" class="avatar">
+            </div>
         <div class="container">
             <label><p style="color:#012A6C">Students Registration Number:</p></label>
             <input type="number" placeholder="" name="registrationnumber" value="@Model.Item2.RegistrationNumber" required locked>

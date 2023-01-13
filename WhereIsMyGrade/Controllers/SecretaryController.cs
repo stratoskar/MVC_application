@@ -20,6 +20,7 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult Index()
         {
+            TempData.Keep("Name");
             return View();
         }
 
@@ -34,6 +35,12 @@ namespace WhereIsMyGrade.Controllers
 
 
         public IActionResult AddUsersAndCourses()
+        {
+            return View();
+        }
+
+
+        public IActionResult AssignToStudent()
         {
             return View();
         }

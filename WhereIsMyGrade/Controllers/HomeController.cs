@@ -73,7 +73,7 @@ namespace WhereIsMyGrade.Controllers
                 }
             }
 
-            // Otherwise, there is an error (possibly the user doesn't exists).
+            // Otherwise, there is an error (possibly the user doesn't exist).
             error.Explain = "User's credentials are incorrect!";
             ViewBag.Message = error; // show error to user
             return RedirectToAction("Error");

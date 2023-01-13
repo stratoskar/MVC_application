@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Tuple<List<course>, List<course_has_students>, List<students>>
+
+@{
     ViewData["Title"] = "Add A Grade";
     Layout = "_ProfessorLayout";
 }
@@ -40,25 +42,31 @@
 </style>
 
 <body>
-    @if (Model.professor_courses.Count == 0)
+    @if (Model.Item1.Count == 0)
     {
-        <h2>There are no courses to display.</h2>
+        <h1>There are no courses to display.</h1>
     }
 
-    @foreach (var course in Model.professor_courses)
+    @foreach (var course in Model.Item1)
     {
-        <h1>
+        <h2>
             @course.CourseTitle
-        </h1>
+        </h2>
+
+        <a style="color:aqua">Semester: @course.CourseSemester</a>
+        <br />
 
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayName("Course ID")
+                        @Html.DisplayName("Registration Number")
                     </th>
                     <th>
-                        @Html.DisplayName("Student Registration Number")
+                        @Html.DisplayName("Firstname")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Lastname")
                     </th>
                     <th>
                         @Html.DisplayName("Grade")
@@ -67,22 +75,47 @@
             </thead>
 
             <tbody>
-                @foreach (var grade_details in Model.student_grades)
+                @{int counter = 0;}
+
+                @foreach (var grade_details in Model.Item2)
                 {
                     @if (grade_details.COURSE_idCOURSE == course.IdCourse)
                     {
                         <tr>
                             <th>
-                                @grade_details.COURSE_idCOURSE
-                            </th>
-                            <th>
                                 @grade_details.STUDENTS_RegistrationNumber
                             </th>
                             <th>
-                                @grade_details.GradeCourseStudent
+                                @Model.Item3.Find(x => x.RegistrationNumber == grade_details.STUDENTS_RegistrationNumber).Name
+                            </th>
+                            <th>
+                                @Model.Item3.Find(x => x.RegistrationNumber == grade_details.STUDENTS_RegistrationNumber).Surname
+                            </th>
+                            <th>
+                                <a asp-action="Add" asp-route-courseid="@grade_details.COURSE_idCOURSE" asp-route-registrationnumber="@grade_details.STUDENTS_RegistrationNumber">Assign Grade</a>
                             </th>
                         </tr>
+
+                        counter++;
                     }
+                }
+
+                @if (counter == 0)
+                {
+                    <tr>
+                        <th>
+                            No pending grades.
+                        </th>
+                        <th>
+                            -
+                        </th>
+                        <th>
+                            -
+                        </th>
+                        <th>
+                            -
+                        </th>
+                    </tr>
                 }
             </tbody>
         </table>

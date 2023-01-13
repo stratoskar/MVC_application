@@ -92,7 +92,7 @@
                                 @Model.Item3.Find(x => x.RegistrationNumber == grade_details.STUDENTS_RegistrationNumber).Surname
                             </th>
                             <th>
-                                <a asp-action="Add" asp-route-courseid="@grade_details.COURSE_idCOURSE" asp-route-registrationnumber="@grade_details.STUDENTS_RegistrationNumber">Assign Grade</a>
+                                <a asp-action="FormAdd" asp-route-courseid="@grade_details.COURSE_idCOURSE" asp-route-registrationnumber="@grade_details.STUDENTS_RegistrationNumber">Assign Grade</a>
                             </th>
                         </tr>
 
@@ -104,7 +104,7 @@
                 {
                     <tr>
                         <th>
-                            No pending grades.
+                            <b style="color:lightcoral">No pending grades.</b>
                         </th>
                         <th>
                             -

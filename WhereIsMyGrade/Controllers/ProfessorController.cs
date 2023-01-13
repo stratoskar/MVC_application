@@ -56,5 +56,17 @@ namespace WhereIsMyGrade.Controllers
             var model = new Tuple<List<course>, List<course_has_students>, List<students>>(professor_courses, student_grades, _db.students.ToList());
             return View(model);
         }
+
+        public IActionResult FormAdd(int? courseid, int? registrationnumber)
+        {
+            TempData.Keep("Name");
+            TempData.Keep("AFM");
+
+            course _course = (from course in _db.course.ToList() where course.IdCourse == courseid select course).First();
+            students _student = (from student in _db.students.ToList() where student.RegistrationNumber == registrationnumber select student).First();
+
+            var model = new Tuple<course, students>(_course, _student);
+            return View(model);
+        }
     }
 }

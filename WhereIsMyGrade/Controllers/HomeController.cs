@@ -62,6 +62,13 @@ namespace WhereIsMyGrade.Controllers
                             return RedirectToAction("Index", "Professor");
 
                         case "student":
+
+                            var student_Name = (from student in _db.students.ToList() where student.USERS_username == user.Username select student.Name).First();
+                            var student_RegNo = (from student in _db.students.ToList() where student.USERS_username == user.Username select student.RegistrationNumber).First();
+
+                            TempData["Name"] = student_Name;
+                            TempData["RegNo"] = student_RegNo.ToString();
+
                             return RedirectToAction("Index", "Student");
                         default: // user's role is not appropriate
 

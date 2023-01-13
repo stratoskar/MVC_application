@@ -6,6 +6,9 @@ namespace WhereIsMyGrade.Controllers
     {
         public IActionResult Index()
         {
+            TempData.Keep("Name");
+            TempData.Keep("RegNo");
+
             return View();
         }
     }

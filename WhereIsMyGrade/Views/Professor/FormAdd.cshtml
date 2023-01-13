@@ -1,7 +1,7 @@
 ﻿@model Tuple<course, students>
 
 @{
-    ViewData["Title"] = "Add A Grade";
+    ViewData["Title"] = $"Assign Grade To {Model.Item2.Name} {Model.Item2.Surname} ({Model.Item2.RegistrationNumber}) for Course \"{Model.Item1.CourseTitle}\"";
     Layout = "_ProfessorLayout";
 }
 <head>
@@ -66,13 +66,13 @@
             </div>
         <div class="container">
             <label><p style="color:#012A6C">Students Registration Number:</p></label>
-            <input type="number" placeholder="" name="registrationnumber" value="@Model.Item2.RegistrationNumber" required locked>
+            <input type="number" placeholder="" name="registrationnumber" value="@Model.Item2.RegistrationNumber" required readonly>
 
             <label><p style="color:#012A6C">Course ID:</p></label>
-            <input type="number" placeholder="" name="courseid" value="@Model.Item1.IdCourse" required locked>
+            <input type="number" placeholder="" name="courseid" value="@Model.Item1.IdCourse" required readonly>
 
             <label><b style="color:#012A6C">Grade:</b></label>
-            <input type="number" placeholder="Enter Grade" name="grade" min="0" max="10" value="5" required>
+            <input style="font-size:400%;" type="number" placeholder="Enter Grade" name="grade" min="0" max="10" value="5" required>
         </div>
         <div class="container" style="background-color:#f1f1f1">
             <button style="background-color: #012A6C;" type="submit">ASSIGN</button>

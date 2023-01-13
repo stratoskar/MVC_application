@@ -90,9 +90,7 @@ namespace WhereIsMyGrade.Controllers
             _db.Update(grading);
             _db.SaveChanges();
 
-            success.Explain = $"Successfully assigned grade to {registration_number}";
-            ViewBag.Message = success;
-            return View("Success");
+            return RedirectToAction("AddGrade");
         }
     }
 }

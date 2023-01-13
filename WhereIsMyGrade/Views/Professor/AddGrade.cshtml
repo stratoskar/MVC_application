@@ -1,7 +1,5 @@
-﻿@model dynamic
-
-@{
-    ViewData["Title"] = "Display Graded Courses";
+﻿@{
+    ViewData["Title"] = "Add A Grade";
     Layout = "_ProfessorLayout";
 }
 
@@ -67,7 +65,7 @@
                     </th>
                 </tr>
             </thead>
-            
+
             <tbody>
                 @foreach (var grade_details in Model.student_grades)
                 {

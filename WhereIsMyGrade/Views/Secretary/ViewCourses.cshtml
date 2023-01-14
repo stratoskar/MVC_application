@@ -42,6 +42,10 @@
     }
 </style>
 
+<h4 style="color:aqua">
+    @TempData["Success"]
+</h4>
+
 <br />
 <br />
 <h5>Here you can see information of all the courses:</h5>
@@ -61,13 +65,13 @@
                     Semester
                 </th>
                 <th>
-                    Assigned Professor's AFM
+                    Professor's AFM
                 </th>
                 <th>
-                    Assigned Professor's Full Name
+                    Professor's Full Name
                 </th>
                 <th>
-                    Declared Students Count
+                    Students Count
                 </th>
                 <th>
                     Action
@@ -111,8 +115,8 @@
                         @count_courses
                     </td>
                     <th>
-                        <a asp-action="AssignPage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Αssign to professor</a> |
-                        <a asp-action="DeclarePage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Declare to student</a>
+                        <a style="color:darkblue" asp-action="AssignPage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Change Professor</a> |
+                        <a style="color:darkred" asp-action="DeclarePage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Declare to Student</a>
                     </th>
                 </tr>
             }

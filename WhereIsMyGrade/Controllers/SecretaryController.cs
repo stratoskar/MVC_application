@@ -76,6 +76,7 @@ namespace WhereIsMyGrade.Controllers
             _db.SaveChanges();
 
             var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+            TempData["Success"] = $"Sucessfully assigned {_db.course.First(c => c.IdCourse == course_id).CourseTitle} to Professor AFM {professors_afm}!";
             return View("ViewCourses", model);
         }
 
@@ -126,6 +127,7 @@ namespace WhereIsMyGrade.Controllers
             _db.SaveChanges();
 
             var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+            TempData["Success"] = $"Sucessfully declared {_db.course.First(c => c.IdCourse == course_id).CourseTitle} to Reg. No. {registration_number}!";
             return View("ViewCourses", model);
         }
 

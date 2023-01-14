@@ -96,6 +96,26 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult Login()
         {
+            // Add a dummy professor to the database, for assistance in courses assignment.
+            if (!_db.professors.Any(o => o.AFM == -1))
+            {
+                users dummy_user = new users();
+                dummy_user.Username = "dummy";
+                dummy_user.Password = "dummy";
+                dummy_user.Role = "-";
+                _db.user.Add(dummy_user);
+
+                professors dummy_professor = new professors();
+                dummy_professor.AFM = -1;
+                dummy_professor.Name = "Dummy";
+                dummy_professor.Surname = "Dummy";
+                dummy_professor.Department = "-";
+                dummy_professor.USERS_username = "dummy";
+                _db.professors.Add(dummy_professor);
+
+                _db.SaveChanges();
+            }
+
             return View();
         }
 

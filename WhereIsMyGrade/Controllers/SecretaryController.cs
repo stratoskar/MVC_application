@@ -199,13 +199,12 @@ namespace WhereIsMyGrade.Controllers
                     // retrieve data from the course fields
                     string course_title = Request.Form["course_title"].ToString();
                     string course_semester = Request.Form["course_semester"].ToString();
-                    string Professors_AFM = Request.Form["professors_AFM"].ToString();
 
                     // create a course object
                     course _course = new course();
                     _course.CourseTitle = course_title;
                     _course.CourseSemester = course_semester;
-                    _course.PROFESSORS_AFM = int.Parse(Professors_AFM);
+                    _course.PROFESSORS_AFM = -1;
 
                     // add it to the database
                     _db.course.Add(_course);

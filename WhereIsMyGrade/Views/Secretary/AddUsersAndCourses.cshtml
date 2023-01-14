@@ -161,9 +161,6 @@
 
             <label id="label_coursesemester"><b style="color:#012A6C">Course's semester number: *</b></label>
             <input type="text" id="coursesemester" placeholder="Enter course semester" name="course_semester" required>
-            
-            <label id="label_professorsAFM"><b style="color:#012A6C">Professor's AFM: *</b></label>
-            <input type="text" id="professorsAFM" placeholder="Enter professors AFM" name="professors_AFM" required>
         </div>
         <div class="container" style="background-color:#f1f1f1">
             <button style="background-color: #012A6C;" type="submit">Register</button>
@@ -195,7 +192,6 @@
             document.getElementById("registratiosnumber").hidden = document.getElementById("label_registratiosnumber").hidden = document.getElementById("radio_course").checked || document.getElementById("radio_professor").checked;
             document.getElementById("coursetitle").hidden        = document.getElementById("label_coursetitle").hidden        = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
             document.getElementById("coursesemester").hidden     = document.getElementById("label_coursesemester").hidden     = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
-            document.getElementById("professorsAFM").hidden      = document.getElementById("label_professorsAFM").hidden      = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
 
             document.getElementById("username").required            = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
             document.getElementById("password").required            = document.getElementById("radio_professor").checked || document.getElementById("radio_student").checked;
@@ -206,7 +202,6 @@
             document.getElementById("registratiosnumber").required  = document.getElementById("radio_student").checked;
             document.getElementById("coursetitle").required         = document.getElementById("radio_course").checked;
             document.getElementById("coursesemester").required      = document.getElementById("radio_course").checked;
-            document.getElementById("professorsAFM").required       = document.getElementById("radio_course").checked;
         }
 
         // this function is used for form's validation on client's side

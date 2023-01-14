@@ -1,13 +1,9 @@
 ﻿<!-- In this page, a secretary can view all the courses, declare them to students and assign a course to professor -->
-@model IEnumerable<course>
-
-@{
-    ViewData["Title"] = "Add Users and Courses";
-    Layout = "_SecretaryLayout";
-}
+@model Tuple<List<course>, List<professors>, List<course_has_students>>
 
 @{
     ViewData["Title"] = "View Courses";
+    Layout = "_SecretaryLayout";
 }
 
 <style>
@@ -56,39 +52,68 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.IdCourse)
+                    Course ID
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CourseTitle)
+                    Course Title
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CourseSemester)
+                    Semester
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PROFESSORS_AFM)
+                    Assigned Professor's AFM
+                </th>
+                <th>
+                    Assigned Professor's Full Name
+                </th>
+                <th>
+                    Declared Students Count
+                </th>
+                <th>
+                    Action
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Item1)
             {
                 <tr>
                     <th>
-                        @Html.DisplayFor(modelItem => item.IdCourse)
+                        @item.IdCourse
                     </th>
+                    <td>
+                        @item.CourseTitle
+                    </td>
+                    <td>
+                        @item.CourseSemester
+                    </td>
+                    @if (item.PROFESSORS_AFM == -1)
+                    {
+                        <td>
+                            -
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @item.PROFESSORS_AFM
+                        </td>
+                    }
+                    <td>
+                        @{
+                            professors p = Model.Item2.First(p => p.AFM == item.PROFESSORS_AFM);
+                            string fullname = p.AFM == -1 ? "-" : $"{p.Name} {p.Surname}";
+                        }
+                        @fullname
+                    </td>
+                    <td>
+                        @{int count_courses = (from courses in Model.Item3 where courses.COURSE_idCOURSE == item.IdCourse select courses).Count();}
+                        @count_courses
+                    </td>
                     <th>
-                        @Html.DisplayFor(modelItem => item.CourseTitle)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CourseSemester)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PROFESSORS_AFM)
-                    </td>
-                    <td>
                         <a asp-action="AssignPage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Αssign to professor</a> |
                         <a asp-action="DeclarePage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Declare to student</a>
-                    </td>
+                    </th>
                 </tr>
             }
         </tbody>

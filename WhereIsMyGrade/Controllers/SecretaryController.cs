@@ -29,8 +29,8 @@ namespace WhereIsMyGrade.Controllers
         public IActionResult ViewCourses()
         {
             // Select all courses
-            List<course> all_courses = _db.course.ToList();
-            return View(all_courses);
+            var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+            return View(model);
         }
 
 
@@ -75,7 +75,8 @@ namespace WhereIsMyGrade.Controllers
             _db.Update(assigned_course);
             _db.SaveChanges();
 
-            return View("ViewCourses", _db.course.ToList());
+            var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+            return View("ViewCourses", model);
         }
 
         // This method opens the Assign to Professor Page
@@ -100,7 +101,7 @@ namespace WhereIsMyGrade.Controllers
             int course_id = int.Parse(Request.Form["courseid"]);
             int registration_number = int.Parse(Request.Form["regno"]);
 
-            // if the professor's afm doesn't exitst, also don't allow it.
+            // if the registration number doesn't exist, don't declare it.
             if (!_db.students.Any(s => s.RegistrationNumber == registration_number))
             {
                 error.Explain = "This Registration Number Doesn't Exist";
@@ -108,7 +109,15 @@ namespace WhereIsMyGrade.Controllers
                 return View("Error");
             }
 
-            // otherwise change the afm.
+            // if the course has already been declared to the same student, don't allow it.
+            if (_db.course_has_students.Any(s => s.STUDENTS_RegistrationNumber == registration_number && s.COURSE_idCOURSE == course_id))
+            {
+                error.Explain = "This student already has this course declared.";
+                ViewBag.Message = error;
+                return View("Error");
+            }
+
+            // otherwise declare the course.
             course_has_students assignment = new course_has_students();
             assignment.COURSE_idCOURSE = course_id;
             assignment.STUDENTS_RegistrationNumber = registration_number;
@@ -116,7 +125,8 @@ namespace WhereIsMyGrade.Controllers
             _db.course_has_students.Add(assignment);
             _db.SaveChanges();
 
-            return View("ViewCourses", _db.course.ToList());
+            var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+            return View("ViewCourses", model);
         }
 
         /// <summary>

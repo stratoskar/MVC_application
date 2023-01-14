@@ -11,14 +11,14 @@ using WhereIsMyGrade.Data;
 namespace WhereIsMyGrade.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230111142529_Grades")]
+    [Migration("20230114125158_Grades")]
     partial class Grades
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);

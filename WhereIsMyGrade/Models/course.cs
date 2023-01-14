@@ -16,7 +16,6 @@ namespace WhereIsMyGrade.Models
         [MaxLength(25)]
         public string CourseSemester { get; set; }
 
-        [Required]
         [ForeignKey("professors")]
         public int PROFESSORS_AFM { get; set; }
 

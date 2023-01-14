@@ -115,8 +115,9 @@
                         @count_courses
                     </td>
                     <th>
-                        <a style="color:darkblue" asp-action="AssignPage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Change Professor</a> |
-                        <a style="color:darkred" asp-action="DeclarePage" asp-controller="Secretary" asp-route-id="@item.IdCourse">Declare to Student</a>
+                        <a style="color:darkblue"   asp-action="AssignPage"   asp-controller="Secretary" asp-route-id="@item.IdCourse">Change Professor</a> |
+                        <a style="color:darkred"    asp-action="DeclarePage"  asp-controller="Secretary" asp-route-id="@item.IdCourse">Declare to Student</a> |
+                        <a style="color:lightcoral" asp-action="DeleteCourse" asp-controller="Secretary" asp-route-id="@item.IdCourse">Delete</a>
                     </th>
                 </tr>
             }

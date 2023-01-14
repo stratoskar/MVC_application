@@ -28,6 +28,8 @@ namespace WhereIsMyGrade.Controllers
         /// <returns>This method returns the all the courses that exist in the database</returns>
         public IActionResult ViewCourses()
         {
+            TempData.Keep("Name");
+
             // Select all courses
             var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
             return View(model);
@@ -42,6 +44,7 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult AddUsersAndCourses()
         {
+            TempData.Keep("Name");
             return View();
         }
 
@@ -50,6 +53,8 @@ namespace WhereIsMyGrade.Controllers
         /// </summary>
         public IActionResult AssignToProfessor()
         {
+            TempData.Keep("Name");
+
             int course_id = int.Parse(Request.Form["courseid"]);
             int professors_afm = int.Parse(Request.Form["afm"]);
 
@@ -83,6 +88,8 @@ namespace WhereIsMyGrade.Controllers
         // This method opens the Assign to Professor Page
         public IActionResult AssignPage(int? id)
         {
+            TempData.Keep("Name");
+
             course model = _db.course.First(c => c.IdCourse == id);
             return View(model);
         }
@@ -90,8 +97,15 @@ namespace WhereIsMyGrade.Controllers
         // This method opens the Declare to student Page
         public IActionResult DeclarePage(int? id)
         {
+            TempData.Keep("Name");
+
             course model = _db.course.First(c => c.IdCourse == id);
             return View(model);
+        }
+
+        public IActionResult DeleteCourse(int? id)
+        {
+            return View("ViewCourses");
         }
 
         /// <summary>
@@ -99,6 +113,8 @@ namespace WhereIsMyGrade.Controllers
         /// </summary>
         public IActionResult DeclareToStudent()
         {
+            TempData.Keep("Name");
+
             int course_id = int.Parse(Request.Form["courseid"]);
             int registration_number = int.Parse(Request.Form["regno"]);
 
@@ -137,6 +153,8 @@ namespace WhereIsMyGrade.Controllers
         /// <returns></returns>
         public IActionResult RegisterUserToDatabase()
         {
+            TempData.Keep("Name");
+
             // get the user type.
             string user_type = Request.Form["user_selection"].ToString();
 

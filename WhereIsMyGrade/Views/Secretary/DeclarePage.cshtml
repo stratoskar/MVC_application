@@ -1,4 +1,6 @@
-﻿@{
+﻿@model course
+
+@{
     Layout = "_SecretaryLayout";
 }
 <head>
@@ -19,7 +21,7 @@
             background-color: white;
         }
 
-        input[type=number] {
+        input[type=number], [type=text] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -61,14 +63,17 @@
             <center><img src="~/images/grade_icon.png" alt="logo_image" class="avatar"></center>
         </div>
         <div class="container">
-            <label><p style="color:#012A6C">Students Registration Number:</p></label>
-            <input type="number" placeholder="" name="registrationnumber" value="" required readonly>
-
             <label><p style="color:#012A6C">Course ID:</p></label>
-            <input type="number" placeholder="" name="courseid" value="" required readonly>
+            <input type="number" placeholder="" name="courseid" value="@Model.IdCourse" required readonly>
 
-            <label><b style="color:#012A6C">Grade:</b></label>
-            <input style="font-size:400%;" type="number" placeholder="Enter Grade" name="grade" min="0" max="10" value="5" required>
+            <label><p style="color:#012A6C">Course title:</p></label>
+            <input type="text" placeholder="" name="coursetitle" value="@Model.CourseTitle" required readonly>
+
+            <label><p style="color:#012A6C">Course Semester:</p></label>
+            <input type="text" placeholder="" name="coursesemester" value="@Model.CourseSemester" required readonly>
+
+            <label><b style="color:#012A6C">Student's Registration Number:</b></label>
+            <input style="font-size:400%;" type="text" placeholder="Enter Registration Number" name="regno" required>
         </div>
         <div class="container" style="background-color:#f1f1f1">
             <button style="background-color: #012A6C;" type="submit">ASSIGN</button>

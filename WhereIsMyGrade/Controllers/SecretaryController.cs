@@ -62,7 +62,7 @@ namespace WhereIsMyGrade.Controllers
             }
 
             // if the professor's afm doesn't exitst, also don't allow it.
-            if (!_db.professors.Any(p => p.AFM != professors_afm))
+            if (!_db.professors.Any(p => p.AFM == professors_afm))
             {
                 error.Explain = "This AFM doesn't exist.";
                 ViewBag.Message = error;
@@ -88,7 +88,8 @@ namespace WhereIsMyGrade.Controllers
         // This method opens the Declare to student Page
         public IActionResult DeclarePage(int? id)
         {
-            return View();
+            course model = _db.course.First(c => c.IdCourse == id);
+            return View(model);
         }
 
         /// <summary>
@@ -96,7 +97,26 @@ namespace WhereIsMyGrade.Controllers
         /// </summary>
         public IActionResult DeclareToStudent()
         {
-            return View();
+            int course_id = int.Parse(Request.Form["courseid"]);
+            int registration_number = int.Parse(Request.Form["regno"]);
+
+            // if the professor's afm doesn't exitst, also don't allow it.
+            if (!_db.students.Any(s => s.RegistrationNumber == registration_number))
+            {
+                error.Explain = "This Registration Number Doesn't Exist";
+                ViewBag.Message = error;
+                return View("Error");
+            }
+
+            // otherwise change the afm.
+            course_has_students assignment = new course_has_students();
+            assignment.COURSE_idCOURSE = course_id;
+            assignment.STUDENTS_RegistrationNumber = registration_number;
+            assignment.GradeCourseStudent = -1;
+            _db.course_has_students.Add(assignment);
+            _db.SaveChanges();
+
+            return View("ViewCourses", _db.course.ToList());
         }
 
         /// <summary>

@@ -119,7 +119,7 @@
     </style>
 </head>
 <body>
-    <form asp-action="RegisterUserToDatabase" asp-controller="Secretary" method="post" onsubmit="return validation()">
+    <form asp-action="RegisterUserToDatabase" asp-controller="Secretary" method="post">
         <br />
         <div class="imgcontainer">
             <img src="~/images/grade_icon.png" alt="logo_image" class="avatar">
@@ -202,39 +202,6 @@
             document.getElementById("registratiosnumber").required  = document.getElementById("radio_student").checked;
             document.getElementById("coursetitle").required         = document.getElementById("radio_course").checked;
             document.getElementById("coursesemester").required      = document.getElementById("radio_course").checked;
-        }
-
-        // this function is used for form's validation on client's side
-        function validation() {
-            // get the values of inputs that user gave in the form
-            var fullname = document.getElementById("fullname").value;
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-
-            var text; // set a new variable
-            // use a new variable for storing the errors during validation
-            error_message.style.padding = "10px";
-            // validation check begins
-            // check first name
-            if (!/^[A-Z][a-z]*\s[A-Z][a-z]*$/.test(fullname)) {
-                text = "Your fullname includes your Name and Surname, which are separated with space. (ex. George Papadopoulos)";
-                error_message.innerHTML = text;
-                return false;
-            }
-
-            // check username
-            if (!/\S/.test(username)) {
-                text = "Username should not consist of only space characters!";
-                error_message.innerHTML = text;
-                return false;
-            }
-            // check password
-            if (password.length < 4) {
-                text = "Password consists of at least 4 characters!";
-                error_message.innerHTML = text;
-                return false;
-            }
-            return true; // everything is fine, no errors occurred
         }
     </script>
 </body>

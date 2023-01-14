@@ -50,17 +50,43 @@ namespace WhereIsMyGrade.Controllers
         /// </summary>
         public IActionResult AssignToProfessor()
         {
-            return View();
+            int course_id = int.Parse(Request.Form["courseid"]);
+            int professors_afm = int.Parse(Request.Form["afm"]);
+
+            // if the professor's afm inserted is -1 then don't allow it.
+            if (professors_afm == -1)
+            {
+                error.Explain = "AFM -1 is not accepted.";
+                ViewBag.Message = error;
+                return View("Error");
+            }
+
+            // if the professor's afm doesn't exitst, also don't allow it.
+            if (!_db.professors.Any(p => p.AFM != professors_afm))
+            {
+                error.Explain = "This AFM doesn't exist.";
+                ViewBag.Message = error;
+                return View("Error");
+            }
+
+            // otherwise change the afm.
+            course assigned_course = _db.course.ToList().First(c => c.IdCourse == course_id);
+            assigned_course.PROFESSORS_AFM = professors_afm;
+            _db.Update(assigned_course);
+            _db.SaveChanges();
+
+            return View("ViewCourses", _db.course.ToList());
         }
 
         // This method opens the Assign to Professor Page
-        public IActionResult AssignPage()
+        public IActionResult AssignPage(int? id)
         {
-            return View();
+            course model = _db.course.First(c => c.IdCourse == id);
+            return View(model);
         }
 
         // This method opens the Declare to student Page
-        public IActionResult DeclarePage()
+        public IActionResult DeclarePage(int? id)
         {
             return View();
         }

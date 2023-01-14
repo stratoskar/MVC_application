@@ -1,4 +1,4 @@
-﻿@model Tuple<List<course_has_students>, List<course>, List<professors>>
+﻿@model Tuple<List<course_has_students>, List<course>, List<professors>, string[]>
 
 @{
     ViewData["Title"] = "Grades Per Semester";
@@ -41,3 +41,71 @@
     }
 </style>
 
+<body>
+    @if (Model.Item2.Count == 0)
+    {
+        <h1>There are no courses assigned to you, yet!</h1>
+    }
+
+    @foreach (var semester in Model.Item4)
+    {
+        <h2>
+            Semester @semester
+        </h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Course Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Professor's Full Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Grade")
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                @foreach (var grade in Model.Item2)
+                {
+                    @if (grade.CourseSemester == semester)
+                    {
+                        <tr>
+                            <th>
+                                @grade.CourseTitle
+                            </th>
+                            <th>
+                                @{
+                                    var professor_details = (from professor in Model.Item3 where professor.AFM == grade.PROFESSORS_AFM select professor).First();
+                                }
+                                @(professor_details.Name + " " + professor_details.Surname)
+                            </th>
+                            @{
+                                var student_grade = (from grades in Model.Item1 where grades.COURSE_idCOURSE == grade.IdCourse select grades).First();
+                            }
+                            @if (student_grade.GradeCourseStudent == -1)
+                            {
+                                <th>
+                                    No Grade
+                                </th>
+                            }
+                            else
+                            {
+                                <th>
+                                    @student_grade.GradeCourseStudent
+                                </th>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+
+        <br />
+        <br />
+    }
+</body>

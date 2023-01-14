@@ -34,7 +34,7 @@ namespace WhereIsMyGrade.Controllers
             var grades = (from grade in _db.course_has_students.ToList() where grade.STUDENTS_RegistrationNumber == int.Parse(TempData["RegNo"].ToString()) select grade).ToList();
             var courses = _db.course.ToList().FindAll(x => (from grade in grades select grade.COURSE_idCOURSE).ToList().Contains(x.IdCourse));
 
-            var model = new Tuple<List<course_has_students>, List<course>, List<professors>>(grades, courses, _db.professors.ToList());
+            var model = new Tuple<List<course_has_students>, List<course>, List<professors>, string[]>(grades, courses, _db.professors.ToList(), courses.Select(o => o.CourseSemester).Distinct().ToArray());
             return View(model);
         }
     }

@@ -74,29 +74,30 @@
                     @if (grade.CourseSemester == semester)
                     {
                         <tr>
-                            <th>
+                            <td>
                                 @grade.CourseTitle
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @{
-                                    var professor_details = (from professor in Model.Item3 where professor.AFM == grade.PROFESSORS_AFM select professor).First();
+                                    var professor_details = Model.Item3.First(p => p.AFM == grade.PROFESSORS_AFM);
+                                    string fullname = professor_details.AFM == -1 ? "-" : $"{professor_details.Name} {professor_details.Surname}";
                                 }
-                                @(professor_details.Name + " " + professor_details.Surname)
-                            </th>
+                                @(fullname)
+                            </td>
                             @{
                                 var student_grade = (from grades in Model.Item1 where grades.COURSE_idCOURSE == grade.IdCourse select grades).First();
                             }
                             @if (student_grade.GradeCourseStudent == -1)
                             {
-                                <th>
-                                    No Grade
-                                </th>
+                                <td>
+                                    -
+                                </td>
                             }
                             else
                             {
-                                <th>
+                                <td>
                                     @student_grade.GradeCourseStudent
-                                </th>
+                                </td>
                             }
                         </tr>
                     }

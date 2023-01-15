@@ -105,7 +105,17 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult DeleteCourse(int? id)
         {
-            return View("ViewCourses");
+            course                    course_to_be_deleted = _db.course.ToList().First(c => c.IdCourse == id);
+            List<course_has_students> grades_to_be_deleted = _db.course_has_students.ToList().Where(g => g.COURSE_idCOURSE == id).ToList();
+
+            grades_to_be_deleted.ForEach(grade => _db.course_has_students.Remove(grade));
+            _db.course.Remove(course_to_be_deleted);
+
+            _db.SaveChanges();
+
+            var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+            TempData["Success"] = $"Sucessfully deleted course.";
+            return View("ViewCourses", model);
         }
 
         /// <summary>

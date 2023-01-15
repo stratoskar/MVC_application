@@ -71,6 +71,9 @@
                     Professor's Full Name
                 </th>
                 <th>
+                    Department
+                </th>
+                <th>
                     Students Count
                 </th>
                 <th>
@@ -109,6 +112,9 @@
                             string fullname = p.AFM == -1 ? "-" : $"{p.Name} {p.Surname}";
                         }
                         @fullname
+                    </td>
+                    <td>
+                        @p.Department
                     </td>
                     <td>
                         @{int count_courses = (from courses in Model.Item3 where courses.COURSE_idCOURSE == item.IdCourse select courses).Count();}

@@ -56,33 +56,45 @@ namespace WhereIsMyGrade.Controllers
             TempData.Keep("Name");
 
             int course_id = int.Parse(Request.Form["courseid"]);
-            int professors_afm = int.Parse(Request.Form["afm"]);
 
-            // if the professor's afm inserted is -1 then don't allow it.
-            if (professors_afm == -1)
+
+            try
             {
-                error.Explain = "AFM -1 is not accepted.";
+                int professors_afm = int.Parse(Request.Form["afm"]);
+
+                // if the professor's afm inserted is -1 then don't allow it.
+                if (professors_afm == -1)
+                {
+                    error.Explain = "AFM -1 is not accepted.";
+                    ViewBag.Message = error;
+                    return View("Error");
+                }
+
+                // if the professor's afm doesn't exitst, also don't allow it.
+                if (!_db.professors.Any(p => p.AFM == professors_afm))
+                {
+                    error.Explain = "This AFM doesn't exist.";
+                    ViewBag.Message = error;
+                    return View("Error");
+                }
+
+                // otherwise change the afm.
+                course assigned_course = _db.course.ToList().First(c => c.IdCourse == course_id);
+                assigned_course.PROFESSORS_AFM = professors_afm;
+                _db.Update(assigned_course);
+                _db.SaveChanges();
+
+                var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+                TempData["Success"] = $"Sucessfully assigned {_db.course.First(c => c.IdCourse == course_id).CourseTitle} to Professor AFM {professors_afm}!";
+                return View("ViewCourses", model);
+            }
+            catch (Exception e)
+            {
+                error.Explain = "Professor's AFM does not have the appropriate format!";
                 ViewBag.Message = error;
                 return View("Error");
             }
-
-            // if the professor's afm doesn't exitst, also don't allow it.
-            if (!_db.professors.Any(p => p.AFM == professors_afm))
-            {
-                error.Explain = "This AFM doesn't exist.";
-                ViewBag.Message = error;
-                return View("Error");
-            }
-
-            // otherwise change the afm.
-            course assigned_course = _db.course.ToList().First(c => c.IdCourse == course_id);
-            assigned_course.PROFESSORS_AFM = professors_afm;
-            _db.Update(assigned_course);
-            _db.SaveChanges();
-
-            var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
-            TempData["Success"] = $"Sucessfully assigned {_db.course.First(c => c.IdCourse == course_id).CourseTitle} to Professor AFM {professors_afm}!";
-            return View("ViewCourses", model);
+            
         }
 
         // This method opens the Assign to Professor Page

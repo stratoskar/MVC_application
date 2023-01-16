@@ -20,7 +20,6 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult Index()
         {
-            TempData.Keep("Name");
             TempData.Keep("RegNo");
 
             return View();
@@ -29,7 +28,6 @@ namespace WhereIsMyGrade.Controllers
         public IActionResult GradesPerSemester()
         {
             // Keep the student's data
-            TempData.Keep("Name");
             TempData.Keep("RegNo");
 
             //var grades = (from grade in _db.course_has_students.ToList() where grade.STUDENTS_RegistrationNumber == int.Parse(TempData["RegNo"].ToString()) select grade).ToList();
@@ -48,7 +46,6 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult AllGrades()
         {
-            TempData.Keep("Name");
             TempData.Keep("RegNo");
 
             return View();

@@ -20,7 +20,7 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult Index()
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
             return View();
         }
 
@@ -28,7 +28,7 @@ namespace WhereIsMyGrade.Controllers
         /// <returns>This method returns the all the courses that exist in the database</returns>
         public IActionResult ViewCourses()
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
 
             // Select all courses
             var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
@@ -44,7 +44,7 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult AddUsersAndCourses()
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
             return View();
         }
 
@@ -53,7 +53,7 @@ namespace WhereIsMyGrade.Controllers
         /// </summary>
         public IActionResult AssignToProfessor()
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
 
             int course_id = int.Parse(Request.Form["courseid"]);
 
@@ -100,7 +100,7 @@ namespace WhereIsMyGrade.Controllers
         // This method opens the Assign to Professor Page
         public IActionResult AssignPage(int? id)
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
 
             course model = _db.course.First(c => c.IdCourse == id);
             return View(model);
@@ -109,7 +109,7 @@ namespace WhereIsMyGrade.Controllers
         // This method opens the Declare to student Page
         public IActionResult DeclarePage(int? id)
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
 
             course model = _db.course.First(c => c.IdCourse == id);
             return View(model);
@@ -117,6 +117,8 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult DeleteCourse(int? id)
         {
+            TempData.Keep("Telephone");
+
             course                    course_to_be_deleted = _db.course.ToList().First(c => c.IdCourse == id);
             List<course_has_students> grades_to_be_deleted = _db.course_has_students.ToList().Where(g => g.COURSE_idCOURSE == id).ToList();
 
@@ -135,7 +137,7 @@ namespace WhereIsMyGrade.Controllers
         /// </summary>
         public IActionResult DeclareToStudent()
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
 
             int course_id = int.Parse(Request.Form["courseid"]);
             int registration_number = int.Parse(Request.Form["regno"]);
@@ -175,7 +177,7 @@ namespace WhereIsMyGrade.Controllers
         /// <returns></returns>
         public IActionResult RegisterUserToDatabase()
         {
-            TempData.Keep("Name");
+            TempData.Keep("Telephone");
 
             // get the user type.
             string user_type = Request.Form["user_selection"].ToString();

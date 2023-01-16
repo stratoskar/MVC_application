@@ -47,36 +47,35 @@ namespace WhereIsMyGrade.Controllers
                     switch (user.Role)
                     {
                         case "secretary":
-                            // Find the secretary's name through LINQ.
-                            var secretary_name = (from secretary in _db.secretaries.ToList() where secretary.USERS_username == user.Username select secretary.Name).First();
-                            
+                            // Find the secretary's Tel. Number through LINQ.
+                            var secretary = _db.secretaries.First(s => s.USERS_username == user.Username);
+
                             // Pass the data through TempData.
-                            TempData["Name"] = secretary_name;
+                            TempData["Telephone"] = secretary.Phonenumber.ToString();
 
                             // Redirect to the secretary's home page.
                             return RedirectToAction("Index", "Secretary");
 
                         case "professor":
 
-                            // Find the professor's name and AFM through LINQ.
-                            var professor_Name = (from professor in _db.professors.ToList() where professor.USERS_username == user.Username select professor.Name).First();
-                            var professor_AFM = (from professor in _db.professors.ToList() where professor.USERS_username == user.Username select professor.AFM).First();
+                            // Find the professor's AFM through LINQ.
+                            var professor = _db.professors.First(p => p.USERS_username == user.Username);
 
                             // Pass the data through TempData.
-                            TempData["Name"] = professor_Name;
-                            TempData["AFM"] = professor_AFM.ToString();
+                            TempData["AFM"] = professor.AFM.ToString();
 
                             // Redirect to the professor's home page.
                             return RedirectToAction("Index", "Professor");
 
                         case "student":
 
-                            var student_Name = (from student in _db.students.ToList() where student.USERS_username == user.Username select student.Name).First();
-                            var student_RegNo = (from student in _db.students.ToList() where student.USERS_username == user.Username select student.RegistrationNumber).First();
+                            // Find the student's registration number through LINQ.
+                            var student = _db.students.First(s => s.USERS_username == user.Username);
+                                
+                            // Pass the data through TempData.
+                            TempData["RegNo"] = student.RegistrationNumber.ToString();
 
-                            TempData["Name"] = student_Name;
-                            TempData["RegNo"] = student_RegNo.ToString();
-
+                            // Redirect to Student's home page.
                             return RedirectToAction("Index", "Student");
                         default: // user's role is not appropriate
 

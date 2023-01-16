@@ -85,7 +85,7 @@
                                 @(fullname)
                             </td>
                             @{
-                                var student_grade = (from grades in Model.Item1 where grades.COURSE_idCOURSE == grade.IdCourse select grades).First();
+                                var student_grade = Model.Item1.First(g => g.COURSE_idCOURSE == grade.IdCourse);
                             }
                             @if (student_grade.GradeCourseStudent == -1)
                             {

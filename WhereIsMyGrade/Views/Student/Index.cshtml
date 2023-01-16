@@ -45,11 +45,6 @@
     <h1>
         Welcome back, @Model.Name. Select an action.
     </h1>
-
-    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Student" asp-action="">My Grades Per Course</a></button>
-    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Student" asp-action="GradesPerSemester">My Grades Per Semester</a></button>
-    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Student" asp-action="AllGrades">All My Grades</a></button>
-
     <br />
     <br />
     <br />
@@ -72,5 +67,7 @@
     <br />
     <br />
     <br />
-    <button class="button"><a asp-controller="Home" asp-action="Login">Logout</a></button>
+    <<div class="box" style="background-color: white;padding-left:20px;">
+        <a style="background-color: #808080;color:white;" class="button" asp-controller="Home" asp-action="Login">Logout</a>
+    </div>
 </left>

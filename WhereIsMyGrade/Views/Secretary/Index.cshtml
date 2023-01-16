@@ -46,9 +46,6 @@
         Welcome back, @Model.Name. Select an action.
     </h1>
 
-    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Secretary" asp-action="AddUsersAndCourses">Add New User and/or Course</a></button>
-    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Secretary" asp-action="ViewCourses">Display Subjects</a></button>
-
     <br />
     <br />
     <br />
@@ -73,5 +70,7 @@
     <br />
     <br />
     <br />
-    <button class="button"><a asp-controller="Home" asp-action="Login">Logout</a></button>
+    <div class="box" style="background-color: white;padding-left:20px;">
+        <a style="background-color: #808080;color:white;" class="button" asp-controller="Home" asp-action="Login">Logout</a>
+    </div>
 </left>

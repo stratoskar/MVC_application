@@ -46,8 +46,8 @@
         Welcome back, @Model.Name. Select an action.
     </h1>
 
-    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Professor" asp-action="AddGrade">Add A Grade</a></button>
     <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Professor" asp-action="DisplayGrades">Display All Grades</a></button>
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Professor" asp-action="AddGrade">Add A Grade</a></button>
 
     <br />
     <br />
@@ -67,4 +67,11 @@
     <b>Department: </b> @Model.Department
     <br />
     <b>AFM: </b> @Model.AFM
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <button class="button"><a asp-controller="Home" asp-action="Login">Logout</a></button>
 </left>

@@ -45,4 +45,33 @@
     <h1>
         Welcome back, @Model.Name. Select an action.
     </h1>
+
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Secretary" asp-action="AddUsersAndCourses">Add New User and/or Course</a></button>
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Secretary" asp-action="ViewCourses">Display Subjects</a></button>
+
+    <br />
+    <br />
+    <br />
+
+
 </center>
+
+<left>
+    <h2>
+        Here is your information:
+    </h2>
+    <b>First Name: </b> @Model.Name
+    <br />
+    <b>Last Name: </b> @Model.Surname
+    <br />
+    <b>Department: </b> @Model.Department
+    <br />
+    <b>Telephone Number: </b> @Model.Phonenumber
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <button class="button"><a asp-controller="Home" asp-action="Login">Logout</a></button>
+</left>

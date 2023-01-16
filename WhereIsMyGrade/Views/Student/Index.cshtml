@@ -41,6 +41,36 @@
     }
 </style>
 
-<h1>
-    Welcome back, @Model.Name. Select an action.
-</h1>
+<center>
+    <h1>
+        Welcome back, @Model.Name. Select an action.
+    </h1>
+
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Student" asp-action="">My Grades Per Course</a></button>
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Student" asp-action="GradesPerSemester">My Grades Per Semester</a></button>
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Student" asp-action="AllGrades">All My Grades</a></button>
+
+    <br />
+    <br />
+    <br />
+</center>
+
+<left>
+    <h2>
+        Here is your information:
+    </h2>
+    <b>First Name: </b> @Model.Name
+    <br />
+    <b>Last Name: </b> @Model.Surname
+    <br />
+    <b>Department: </b> @Model.Department
+    <br />
+    <b>Registration Number: </b> @Model.RegistrationNumber
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <button class="button"><a asp-controller="Home" asp-action="Login">Logout</a></button>
+</left>

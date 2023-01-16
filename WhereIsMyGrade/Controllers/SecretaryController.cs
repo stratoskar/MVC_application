@@ -140,6 +140,7 @@ namespace WhereIsMyGrade.Controllers
         public IActionResult DeclareToStudent()
         {
             TempData.Keep("Telephone");
+
             try
             {
                 int course_id = int.Parse(Request.Form["courseid"]);

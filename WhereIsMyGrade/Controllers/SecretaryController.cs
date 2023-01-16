@@ -140,37 +140,45 @@ namespace WhereIsMyGrade.Controllers
         public IActionResult DeclareToStudent()
         {
             TempData.Keep("Telephone");
-
-            int course_id = int.Parse(Request.Form["courseid"]);
-            int registration_number = int.Parse(Request.Form["regno"]);
-
-            // if the registration number doesn't exist, don't declare it.
-            if (!_db.students.Any(s => s.RegistrationNumber == registration_number))
+            try
             {
-                error.Explain = "This Registration Number Doesn't Exist";
+                int course_id = int.Parse(Request.Form["courseid"]);
+                int registration_number = int.Parse(Request.Form["regno"]);
+
+                // if the registration number doesn't exist, don't declare it.
+                if (!_db.students.Any(s => s.RegistrationNumber == registration_number))
+                {
+                    error.Explain = "This Registration Number Doesn't Exist";
+                    ViewBag.Message = error;
+                    return View("Error");
+                }
+
+                // if the course has already been declared to the same student, don't allow it.
+                if (_db.course_has_students.Any(s => s.STUDENTS_RegistrationNumber == registration_number && s.COURSE_idCOURSE == course_id))
+                {
+                    error.Explain = "This student already has this course declared.";
+                    ViewBag.Message = error;
+                    return View("Error");
+                }
+
+                // otherwise declare the course.
+                course_has_students assignment = new course_has_students();
+                assignment.COURSE_idCOURSE = course_id;
+                assignment.STUDENTS_RegistrationNumber = registration_number;
+                assignment.GradeCourseStudent = -1;
+                _db.course_has_students.Add(assignment);
+                _db.SaveChanges();
+
+                var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
+                TempData["Success"] = $"Sucessfully declared {_db.course.First(c => c.IdCourse == course_id).CourseTitle} to Reg. No. {registration_number}!";
+                return View("ViewCourses", model);
+            } 
+            catch (Exception e)
+            {
+                error.Explain = "Student's registration number does not have the appropriate format!";
                 ViewBag.Message = error;
                 return View("Error");
             }
-
-            // if the course has already been declared to the same student, don't allow it.
-            if (_db.course_has_students.Any(s => s.STUDENTS_RegistrationNumber == registration_number && s.COURSE_idCOURSE == course_id))
-            {
-                error.Explain = "This student already has this course declared.";
-                ViewBag.Message = error;
-                return View("Error");
-            }
-
-            // otherwise declare the course.
-            course_has_students assignment = new course_has_students();
-            assignment.COURSE_idCOURSE = course_id;
-            assignment.STUDENTS_RegistrationNumber = registration_number;
-            assignment.GradeCourseStudent = -1;
-            _db.course_has_students.Add(assignment);
-            _db.SaveChanges();
-
-            var model = new Tuple<List<course>, List<professors>, List<course_has_students>>(_db.course.ToList(), _db.professors.ToList(), _db.course_has_students.ToList());
-            TempData["Success"] = $"Sucessfully declared {_db.course.First(c => c.IdCourse == course_id).CourseTitle} to Reg. No. {registration_number}!";
-            return View("ViewCourses", model);
         }
 
         /// <summary>

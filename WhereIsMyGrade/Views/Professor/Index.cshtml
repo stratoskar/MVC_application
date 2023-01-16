@@ -1,4 +1,6 @@
-﻿@{
+﻿@model professors
+
+@{
     ViewData["Title"] = "Professor Main";
     Layout = "_ProfessorLayout";
 }
@@ -43,4 +45,26 @@
     <h1>
         Welcome back, @TempData["Name"]. Select an action.
     </h1>
+
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Professor" asp-action="AddGrade">Add A Grade</a></button>
+    <button class="button"><a style="text-decoration:none" asp-area="" asp-controller="Professor" asp-action="DisplayGrades">Display All Grades</a></button>
+
+    <br />
+    <br />
+    <br />
+
+
 </center>
+
+<left>
+    <h2>
+        Here is your information:
+    </h2>
+    <b>First Name: </b> @Model.Name
+    <br />
+    <b>Last Name: </b> @Model.Surname
+    <br />
+    <b>Department: </b> @Model.Department
+    <br />
+    <b>AFM: </b> @Model.AFM
+</left>

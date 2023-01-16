@@ -22,7 +22,9 @@ namespace WhereIsMyGrade.Controllers
         {
             TempData.Keep("Name");
             TempData.Keep("AFM");
-            return View();
+
+            professors model = _db.professors.First(p => p.AFM == int.Parse(TempData["AFM"].ToString()));
+            return View(model);
         }
 
         public IActionResult DisplayGrades()

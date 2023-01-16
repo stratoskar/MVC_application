@@ -21,7 +21,9 @@ namespace WhereIsMyGrade.Controllers
         public IActionResult Index()
         {
             TempData.Keep("Telephone");
-            return View();
+
+            var model = _db.secretaries.First(s => s.Phonenumber == int.Parse(TempData["Telephone"].ToString()));
+            return View(model);
         }
 
   

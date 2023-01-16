@@ -22,7 +22,8 @@ namespace WhereIsMyGrade.Controllers
         {
             TempData.Keep("RegNo");
 
-            return View();
+            var model = _db.students.First(s => s.RegistrationNumber == int.Parse(TempData["RegNo"].ToString()));
+            return View(model);
         }
 
         public IActionResult GradesPerSemester()

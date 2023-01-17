@@ -1,0 +1,129 @@
+﻿@model Tuple<List<course_has_students>, List<course>, List<professors>>
+
+@{
+    ViewData["Title"] = "Grades Per Semester";
+    Layout = "_StudentLayout";
+}
+
+<style>
+    a {
+        font-size: 18px;
+        color: #FFFFFF;
+    }
+
+    * {
+        font-family: candara;
+        color: white;
+        font-family: 18px;
+    }
+
+    .button {
+        background-color: mediumseagreen;
+        color: white;
+        padding: 10px 18px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: auto;
+    }
+
+    .box {
+        border: 1px solid white;
+        height: 30px;
+    }
+
+    body {
+        background-color: seagreen;
+    }
+
+    a:hover {
+        color: floralwhite;
+    }
+</style>
+
+<body>
+    @if (Model.Item2.Count == 0)
+    {
+        <h1>There are no courses assigned to you, yet!</h1>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Course Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Semester")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Professor's Full Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Grade")
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                
+                @{int grades_count = 0;}
+                @{int grades_sum = 0;}
+
+                @foreach (var course in Model.Item2)
+                {
+                    <tr>
+                        <td>
+                            @course.CourseTitle
+                        </td>
+                        <td>
+                            @course.CourseSemester
+                        </td>
+                        <td>
+                            @{
+                                var professor_details = Model.Item3.First(p => p.AFM == course.PROFESSORS_AFM);
+                                var professor_name = professor_details.AFM == -1 ? "-" : $"{professor_details.Name} {professor_details.Surname}";
+                            }
+                            @professor_name
+                        </td>
+                        @{
+                            var student_grade = (from grades in Model.Item1 where grades.COURSE_idCOURSE == course.IdCourse select grades).First();
+                        }
+                        @if (student_grade.GradeCourseStudent == -1)
+                        {
+                            <td>
+                                -
+                            </td>
+                        }
+                        else if (student_grade.GradeCourseStudent > 4)
+                        {
+                            grades_count += 1;
+                            grades_sum += student_grade.GradeCourseStudent;
+
+                            <td>
+                                @student_grade.GradeCourseStudent
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="color:#FF8888">
+                                @student_grade.GradeCourseStudent
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+        decimal average = grades_count == 0 ? 0 : Math.Round(((decimal)grades_sum / ((decimal)grades_count)), 2);
+
+        <h4>
+            Average: @average
+        </h4>
+
+        <br />
+        <br />
+    }
+</body>

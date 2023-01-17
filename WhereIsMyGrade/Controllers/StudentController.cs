@@ -31,9 +31,6 @@ namespace WhereIsMyGrade.Controllers
             // Keep the student's data
             TempData.Keep("RegNo");
 
-            //var grades = (from grade in _db.course_has_students.ToList() where grade.STUDENTS_RegistrationNumber == int.Parse(TempData["RegNo"].ToString()) select grade).ToList();
-            //var courses = _db.course.ToList().FindAll(x => (from grade in grades select grade.COURSE_idCOURSE).ToList().Contains(x.IdCourse));
-
             // find all student's grades
             var grades = _db.course_has_students.ToList().FindAll(g => g.STUDENTS_RegistrationNumber == int.Parse(TempData["RegNo"].ToString()));
             
@@ -47,9 +44,19 @@ namespace WhereIsMyGrade.Controllers
 
         public IActionResult AllGrades()
         {
+            // Keep the student's data
             TempData.Keep("RegNo");
 
-            return View();
+            // find all student's grades
+            var grades = _db.course_has_students.ToList().FindAll(g => g.STUDENTS_RegistrationNumber == int.Parse(TempData["RegNo"].ToString()));
+
+            // find all student's courses 
+            var courses = _db.course.ToList().FindAll(c => grades.Select(g => g.COURSE_idCOURSE).Contains(c.IdCourse));
+            courses = courses.OrderBy(c => int.Parse(c.CourseSemester)).ToList();
+
+            // assign all these lists to the model
+            var model = new Tuple<List<course_has_students>, List<course>, List<professors>>(grades, courses, _db.professors.ToList());
+            return View(model);
         }
     }
 }

@@ -31,7 +31,8 @@
         }
 
         input[type=text],
-        input[type=password] {
+        input[type=password],
+        input[type=number]{
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -160,7 +161,7 @@
             <input type="text" id="coursetitle" placeholder="Enter course title" name="course_title" required>
 
             <label id="label_coursesemester"><b style="color:#012A6C">Course's semester number: *</b></label>
-            <input type="text" id="coursesemester" placeholder="Enter course semester" name="course_semester" required>
+            <input type="number" min="0" max="10" id="coursesemester" placeholder="Enter course semester" name="course_semester" required>
         </div>
         <div class="container" style="background-color:#f1f1f1">
             <button style="background-color: #012A6C;" type="submit">Add</button>
